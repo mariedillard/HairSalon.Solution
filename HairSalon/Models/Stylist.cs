@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace HairSolution.Models
+namespace HairSalon.Models
 {
     public class Stylist
     {
@@ -40,7 +40,7 @@ namespace HairSolution.Models
 
         public static List<Stylist> GetAll()
         {
-            List<Stylist> allCategories = new List<Stylist> {};
+            List<Stylist> allStylists = new List<Stylist> {};
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
@@ -58,7 +58,7 @@ namespace HairSolution.Models
             {
                 conn.Dispose();
             }
-            return allCategories;
+            return allStylists;
         }
 
         public static Stylist Find(int id)
@@ -66,7 +66,7 @@ namespace HairSolution.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandTest = @"SELECT * FROM categories WHERE id = (@searchId);";
+            cmd.CommandText = @"SELECT * FROM stylists WHERE id = (@searchId);";
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
             searchId.Value = id;
@@ -93,7 +93,7 @@ namespace HairSolution.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT clients.* FROM stylists JOIN stylists.clients ON (stylists.id = stylists_clients.stylist_id) JOIN clients ON (stylists_clients.client_id = clients.id) WHERE stylists.id = @StylistId;";
+            cmd.CommandText = @"SELECT clients.* FROM stylists JOIN stylists_clients ON (stylists.id = stylists_clients.stylist_id) JOIN clients ON (stylists_clients.client_id = clients.id) WHERE stylists.id = @StylistId;";
             MySqlParameter stylistIdParameter = new MySqlParameter();
             stylistIdParameter.ParameterName = "@StylistId";
             stylistIdParameter.Value = _id;
@@ -153,7 +153,7 @@ namespace HairSolution.Models
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
-            MySqlCommand cmd = new MySqlCommand("DELETE FROM stylists WHERE id = @StylistId; DELETE FROM stylists_items WHERE stylist_id = @StylistId;", conn);
+            MySqlCommand cmd = new MySqlCommand("DELETE FROM stylists WHERE id = @StylistId; DELETE FROM stylists_clients WHERE stylist_id = @StylistId;", conn);
             MySqlParameter stylistIdParameter = new MySqlParameter();
             stylistIdParameter.ParameterName = "@StylistId";
             stylistIdParameter.Value = this.GetId();
@@ -175,7 +175,7 @@ namespace HairSolution.Models
             stylist_id.ParameterName = "@StylistId";
             stylist_id.Value = _id;
             cmd.Parameters.Add(stylist_id);
-            MySqlParameter stylist_id = new MySqlParameter();
+            MySqlParameter client_id = new MySqlParameter();
             client_id.ParameterName = "@ClientId";
             client_id.Value = newClient.GetId();
             cmd.Parameters.Add(client_id);

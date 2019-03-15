@@ -8,17 +8,17 @@ namespace HairSalon
 {
     public class Startup
     {
-        public Startup(IHostEnviroment env)
+        public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddEnviromentVariables();
+                .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
         
-        public void ConfigureServices(IServicesCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
         }
