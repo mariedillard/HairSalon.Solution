@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 16, 2019 at 12:36 AM
+-- Generation Time: Mar 17, 2019 at 03:31 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -38,7 +38,18 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `description`) VALUES
-(134, 'Walk the dog');
+(162, 'Walk the dog');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialties`
+--
+
+CREATE TABLE `specialties` (
+  `id` int(11) NOT NULL,
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -112,7 +123,37 @@ INSERT INTO `stylists_clients` (`id`, `stylist_id`, `client_id`) VALUES
 (56, 91, 128),
 (59, 99, 130),
 (60, 99, 131),
-(61, 100, 132);
+(61, 100, 132),
+(62, 101, 141),
+(63, 103, 142),
+(65, 110, 144),
+(66, 110, 145),
+(67, 111, 146),
+(68, 112, 155),
+(69, 114, 156),
+(71, 124, 158),
+(72, 124, 159),
+(73, 125, 160);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stylists_specialties`
+--
+
+CREATE TABLE `stylists_specialties` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `stylist_id` int(11) DEFAULT NULL,
+  `specialty_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stylists_specialties`
+--
+
+INSERT INTO `stylists_specialties` (`id`, `stylist_id`, `specialty_id`) VALUES
+(1, 115, 7),
+(2, 117, 8);
 
 --
 -- Indexes for dumped tables
@@ -123,6 +164,13 @@ INSERT INTO `stylists_clients` (`id`, `stylist_id`, `client_id`) VALUES
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `specialties`
+--
+ALTER TABLE `specialties`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `stylists`
@@ -139,6 +187,13 @@ ALTER TABLE `stylists_clients`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `stylists_specialties`
+--
+ALTER TABLE `stylists_specialties`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -146,17 +201,27 @@ ALTER TABLE `stylists_clients`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+--
+-- AUTO_INCREMENT for table `specialties`
+--
+ALTER TABLE `specialties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `stylists`
 --
 ALTER TABLE `stylists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 --
 -- AUTO_INCREMENT for table `stylists_clients`
 --
 ALTER TABLE `stylists_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+--
+-- AUTO_INCREMENT for table `stylists_specialties`
+--
+ALTER TABLE `stylists_specialties`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
