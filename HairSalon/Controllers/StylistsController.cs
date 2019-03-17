@@ -36,10 +36,14 @@ namespace HairSalon.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist selectedStylist = Stylist.Find(id);
       List<Client> stylistClients = selectedStylist.GetClients();
-      List<Client> allClients = Client.GetAll();
+      List<Client> allClients = Client.GetAll();   
+      List<Specialty> stylistSpecialties = selectedStylist.GetSpecialties();
+      List<Specialty> allSpecialties = Specialty.GetAll();
       model.Add("stylist", selectedStylist);
       model.Add("stylistClients", stylistClients);  
       model.Add("allClients", allClients);
+      model.Add("stylistSpecialties", stylistSpecialties);  
+      model.Add("allSpecialties", allSpecialties);
       return View(model);
     }
     [HttpPost("/stylists/{stylistId}/clients/new")]
@@ -50,21 +54,14 @@ namespace HairSalon.Controllers
       stylist.AddClient(client);
       return RedirectToAction("Show",  new { id = stylistId });
     }
-    //
-    // // This one creates new Clients within a given Stylist, not new Stylists:
-    // [HttpPost("/stylists/{stylistId}/clients")]
-    // public ActionResult Create(int stylistId, string clientDescription)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Stylist foundStylist = Stylist.Find(stylistId);
-    //   Client newClient = new Client(clientDescription);
-    //   newClient.Save();
-    //   foundStylist.AddClient(newClient);
-    //   List<Client> stylistClients = foundStylist.GetClients();
-    //   model.Add("clients", stylistClients);
-    //   model.Add("stylist", foundStylist);
-    //   return View("Show", model);
-    // }
 
+    [HttpPost("/stylists/{stylistId}/specialties/new")]
+    public ActionResult AddSpecialty(int stylistId, int specialtyId)
+    {
+      Stylist stylist = Stylist.Find(stylistId);
+      Specialty specialty = Specialty.Find(specialtyId);
+      stylist.AddSpecialty(specialty);
+      return RedirectToAction("Show",  new { id = stylistId });
+    }
   }
 }
