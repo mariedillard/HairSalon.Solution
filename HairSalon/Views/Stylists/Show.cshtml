@@ -56,4 +56,8 @@
   <button type='submit'>Add</button>
 </form>
 
+<br/><form action='/stylists/@Model["stylist"].GetId()/delete' method='post'>
+  <button id='@Model["stylist"].GetId()' name='@Model["stylist"].GetId()' type='submit'>Delete @Model["stylist"].GetName() </button>
+<br/></form>
+
 <p><a href="/">Return to Main Page</a></p>

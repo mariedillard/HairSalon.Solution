@@ -27,4 +27,12 @@
   </select>
   <button type='submit'>Add</button>
 </form>
+
+<p><a href="/">Return to Main Page</a></p>
+
+<form action='/clients/@Model["selectedClient"].GetId()/delete' method='post'>
+  <button id='@Model["selectedClient"].GetId()' name='@Model["selectedClient"].GetId()' type='submit'>Delete @Model["selectedClient"].GetName() </button>
+</form>
+
+
 <p><a href="/">Return to Main Page</a></p>
